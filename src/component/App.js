@@ -1,14 +1,12 @@
 import {service} from "../service/service";
 import React, {useEffect, useRef, useState} from "react";
 import './App.css';
-import {Alert, Button} from "react-bootstrap";
+import {Alert, Button, Col, Container, Row, Table} from "react-bootstrap";
 
 function App() {
     const [show, setShow] = useState(false)
     const [org, setOrg] = useState({
-        organization: [],
-        find: "hello",
-        error: null
+        organization: [], find: "hello", error: null
     })
     const fetchOrganization = async () => {
         await service.getOrganizations(org.find)
@@ -18,7 +16,7 @@ function App() {
     }
 
     const onNameChange = (e) => {
-        setOrg({ ...org, find: e.target.value });
+        setOrg({...org, find: e.target.value});
     };
 
 
@@ -27,54 +25,75 @@ function App() {
     }, [])
 
     useEffect(() => {
-       if (org.error !== null){
-           setShow(true)
-       }
-    },[org.error] )
+        if (org.error !== null) {
+            setShow(true)
+        }
+    }, [org.error])
 
-    return (
-        <div className="App">
-            <header className="App-header">
-
-
-                <>
-                    <Alert show={show} variant="success" style={{width: "100%"}}>
-                        <Alert.Heading>Error!</Alert.Heading>
-                        <p>
-                            {org.error}
-                        </p>
-                        <hr />
-                        <div className="d-flex justify-content-end">
-                            <Button onClick={() => setShow(false)} variant="outline-success">
-                                Close!
-                            </Button>
-                        </div>
-                    </Alert>
-                </>
+    return (<div className="container">
+        <header className="App-header">
 
 
+            <>
+                <Alert show={show} variant="success" style={{width: "100%"}}>
+                    <Alert.Heading>Error!</Alert.Heading>
+                    <p>
+                        {org.error}
+                    </p>
+                    <hr/>
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShow(false)} variant="outline-success">
+                            Close!
+                        </Button>
+                    </div>
+                </Alert>
+            </>
 
-                <input type="text" onChange={onNameChange} />
-                <button onClick={fetchOrganization}>Fetch Organisation</button>
-                {org.organization ? org.organization.map((organ, index) => {
-                    const {name, watchers, forks, open_issues, license, id} = organ
-                    return (
-                        <ul key={index}>
-                            <li key={id}>
-                                {name},
-                                {watchers},
-                                {forks},
-                                {open_issues},
-                                {/*{license ? license : ''}*/}
-                            </li>
-                        </ul>
+
+           <Container className="m-5 row">
+               <Row>
+                   <Col sm={8}>
+                       <input type="text" onChange={onNameChange} className="input-group h-100"/>
+                   </Col>
+                   <Col sm={4}>
+                       <button onClick={fetchOrganization} className="btn btn-outline-secondary">find organisation</button>
+                   </Col>
 
 
-                    )
-                }) : ''}
-            </header>
-        </div>
-    );
+
+               </Row>
+           </Container>
+            {org.organization ? org.organization.map((organ, index) => {
+                const {name, watchers, forks, open_issues, owner, id} = organ
+                return (
+
+                    <Table striped bordered hover key={id} >
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Avatar</th>
+                            <th>Name Organization</th>
+                            <th>Watchers</th>
+                            <th>Forks</th>
+                            <th>open_issues</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            {/*<li key={id}>*/}
+                            <td>{index + 1}</td>
+                            <td><img src={owner.avatar_url} width="80px" height="80px"/></td>
+                            <td>{name}</td>
+                            <td>{watchers}</td>
+                            <td>{forks}</td>
+                            <td>{open_issues}</td>
+                            {/*</li>*/}
+                        </tr>
+                        </tbody>
+                    </Table>)
+            }) : ''}
+        </header>
+    </div>);
 }
 
 export default App;
