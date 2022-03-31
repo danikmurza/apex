@@ -1,7 +1,7 @@
 import {service} from "../service/service";
 import React, {useEffect, useRef, useState} from "react";
 import './App.css';
-import {Alert, Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Alert, Button, Col, Row, Table} from "react-bootstrap";
 
 function App() {
     const find = useRef('hello')
@@ -85,7 +85,7 @@ function App() {
                         <tr>
                             {/*<li key={id}>*/}
                             <td>{index + 1}</td>
-                            <td><img src={owner.avatar_url} width="80px" height="80px"/></td>
+                            <td><img alt={name}  src={owner.avatar_url} width="80px" height="80px"/></td>
                             <td>{name}</td>
                             <td>{watchers}</td>
                             <td>{forks}</td>
