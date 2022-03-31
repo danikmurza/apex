@@ -10,7 +10,7 @@ function App() {
         organization: [], find: "hello", error: null
     })
     const fetchOrganization = () => {
-         service.getOrganizations(find.current)
+         service.getCompany(find.current)
             .then(res => setOrg({...org, organization: res}))
             .catch(e => setOrg({...org, error: e}))
         console.log(org)

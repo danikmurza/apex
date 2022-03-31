@@ -1,4 +1,4 @@
-const _base = "http://localhost:5000/posts"
+const _base = "https://api.github.com/orgs"
 
 function handleResponse(response) {
     return response.text().then(text => {
@@ -14,16 +14,15 @@ function handleResponse(response) {
 }
 
 
-const getCompany = async (body) => {
+const getCompany = async (url) => {
     const requestOptions = {
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
+        }
     }
 
-    return await fetch(`${_base}/find`, requestOptions)
+    return await fetch(`${_base}/${url}/repos`, requestOptions)
         .then(handleResponse)
         .then(products => {
                 return products
