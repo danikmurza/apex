@@ -23,7 +23,7 @@ function App() {
 
     useEffect(() => {
         fetchOrganization()
-    }, [find.current])
+    }, [])
 
     useEffect(() => {
         if (org.error !== null) {
