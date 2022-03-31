@@ -3,7 +3,7 @@ import './index.css';
 import App from './component/App';
 
 
-const root = ReactDOMClient.createRoot(document.getElementById('root'));
+ReactDOMClient.createRoot(document.getElementById('root')).render(<App/>);
 
-root.render(<App/>)
+
 
