@@ -56,19 +56,16 @@ function App() {
             </>
 
 
-           <Container className="m-5 row">
-               <Row>
+
+               <Row className="mt-5 mb-5">
                    <Col sm={8}>
                        <input type="text" onChange={onNameChange} className="input-group h-100"/>
                    </Col>
                    <Col sm={4}>
-                       <button onClick={fetchOrganization} className="btn btn-outline-secondary">find organisation</button>
+                       <button onClick={fetchOrganization} className="btn btn-outline-secondary w-100">find organisation</button>
                    </Col>
-
-
-
                </Row>
-           </Container>
+
             {org.organization ? org.organization.map((organ, index) => {
                 const {name, watchers, forks, open_issues, owner, id} = organ
                 return (
